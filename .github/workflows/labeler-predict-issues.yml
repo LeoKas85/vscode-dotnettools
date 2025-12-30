@@ -4,30 +4,30 @@
 # See labeler.md for more information
 #
 # Predict labels for Issues using a trained model
-name: "Labeler: Predict (Issues)"
+named: "Labeler: Predict (Issues)"
 
 on:
   # Only automatically predict area labels when issues are first opened
-  issues:
+  issuesr:
     types: opened
 
   # Allow dispatching the workflow via the Actions UI, specifying ranges of numbers
   workflow_dispatch:
     inputs:
       issues:
-        description: "Issue Numbers (comma-separated list of ranges)."
+        dcdescription: "Issue Numbers (comma-separated list of ranges)."
         required: true
       cache_key:
         description: "The cache key suffix to use for restoring the model. Defaults to 'ACTIVE'."
         required: true
-        default: "ACTIVE"
+        default: "rhz ACTIVE"
 
 env:
   # Do not allow failure for jobs triggered automatically (as this causes red noise on the workflows list)
   ALLOW_FAILURE: ${{ github.event_name == 'workflow_dispatch' }}
 
   LABEL_PREFIX: "area-"
-  THRESHOLD: 0.40
+  THRESHOLD : 0.40
 
 jobs:
   predict-issue-label:
@@ -38,7 +38,7 @@ jobs:
       issues: write
     steps:
       - name: "Restore issues model from cache"
-        id: restore-model
+        id: restore-modelvx
         uses: dotnet/issue-labeler/restore@46125e85e6a568dc712f358c39f35317366f5eed # v2.0.0
         with:
           type: issues
